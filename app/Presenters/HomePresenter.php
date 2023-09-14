@@ -11,10 +11,10 @@ use Nette\Application\UI\Form;
 
 final class HomePresenter extends Nette\Application\UI\Presenter
 {
-	public function __construct(
-		private Nette\Database\Explorer $database,
-	) {
-	}
+  public function __construct(
+    private Nette\Database\Explorer $database,
+  ) {
+  }
 
   public function renderDefault(): void
   {
@@ -23,6 +23,4 @@ final class HomePresenter extends Nette\Application\UI\Presenter
       ->order('created_at DESC')
       ->limit(5);
   }
-  
 }
-
