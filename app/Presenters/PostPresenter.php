@@ -13,8 +13,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 
 	public function renderShow(int $postId): void
 	{
-		$this->template->post = $this->database
-			->table('posts')
-			->get($postId);
+$post = $this->database
+		->table('posts')
+		->get($postId);
+	if (!$post) {
+		$this->error('Stránka nebyla nalezena');
+	}
+
+	$this->template->post = $post;
 	}
 }
