@@ -37,11 +37,12 @@ private function postFormSucceeded(array $data): void
 		$post->update($data);
 
 	} else {
+		$data["created_at"] = new \DateTime();
 		$post = $this->database
 			->table('posts')
 			->insert($data);
 	}
-
+\Tracy\Debugger::barDump($data);
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
 	$this->redirect('Post:show', $post->id);
 }
