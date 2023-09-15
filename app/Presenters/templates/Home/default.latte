@@ -8,8 +8,11 @@
    <h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
 
 		<div>{$post->content|truncate:256}</div>
+		<br>
 	</div>
-
+	
+	<br>
+	<a n:href="Edit:create">Napsat nový příspěvek</a>
 
 
 {/block}

@@ -2,6 +2,7 @@
 
 <p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
 
+<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 
 <h1 n:block="title">{$post->title}</h1>
@@ -23,3 +24,4 @@
 		<div>{$comment->content}</div>
 	{/foreach}
 </div>
+

@@ -53,7 +53,9 @@ final class PostPresenter extends Nette\Application\UI\Presenter
       'name' => $data->name,
       'email' => $data->email,
       'content' => $data->content,
+      'created_at' =>new \DateTime()
     ]);
+    \tracy\Debugger::barDump(new \DateTime());
 
     $this->flashMessage('Děkuji za komentář', 'success');
     $this->redirect('this');
