@@ -22,7 +22,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     }
 
     $this->template->post = $post;
-	  $this->template->comments = $post->related('comments')->order('created_at');
+    $this->template->comments = $post->related('comments')->order('created_at DESC'); //DESC neseřadilo komentáře sestupně - proč?
   }
 
   protected function createComponentCommentForm(): Form
