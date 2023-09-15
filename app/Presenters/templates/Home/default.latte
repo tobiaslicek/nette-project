@@ -12,7 +12,7 @@
 	</div>
 	
 	<br>
-	<a n:href="Edit:create">Napsat nový příspěvek</a>
+	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Napsat nový příspěvek</a>
 
 
 {/block}
