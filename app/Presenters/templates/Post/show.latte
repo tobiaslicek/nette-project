@@ -8,20 +8,19 @@
 <h1 n:block="title">{$post->title}</h1>
 
 <div class="post">{$post->content}</div>
-
-<h2>Vložte nový příspěvek</h2>
+<br><br>
+<h2>Komentáře</h2>
+<h3>Vložte nový Komentář</h3>
 
 {control commentForm}
-
-<h2>Komentáře</h2>
-
+<br>
 <div class="comments">
 	{foreach $comments as $comment}
+		<div class="date">{$comment->created_at|date:'F j, Y'} 
+		</div>
 		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
 			{$comment->name}
 		</a></b> napsal:</p>
-		<div class="date">{$comment->created_at|date:'F j, Y'} 
-		</div>
 		<div>{$comment->content}</div>
 
 	{/foreach}
