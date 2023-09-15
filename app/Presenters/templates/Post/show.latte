@@ -3,8 +3,7 @@
 
 <a n:href="Edit:edit $post->id">Upravit příspěvek</a>
 <li><a n:href="Home:">Články</a></li>
-<div class="date">{$post->created_at|date:'F j, Y'}</div>
-
+<div class="date">{$post->created_at|date:'j.n.Y, 	G:i'}</div>
 <h1 n:block="title">{$post->title}</h1>
 
 <div class="post">{$post->content}</div>
