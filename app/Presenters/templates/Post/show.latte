@@ -11,3 +11,15 @@
 <h2>Vložte nový příspěvek</h2>
 
 {control commentForm}
+
+<h2>Komentáře</h2>
+
+<div class="comments">
+	{foreach $comments as $comment}
+		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+			{$comment->name}
+		</a></b> napsal:</p>
+
+		<div>{$comment->content}</div>
+	{/foreach}
+</div>
