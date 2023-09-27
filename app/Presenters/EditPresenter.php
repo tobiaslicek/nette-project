@@ -7,68 +7,65 @@ use Nette\Application\UI\Form;
 
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
-  public function __construct(
-    private Nette\Database\Explorer $database,
-  ) {
-  }
+	public function __construct(
+		private Nette\Database\Explorer $database,
+	) {
+	}
 
-  protected function createComponentPostForm(): Form
-  {
-    $form = new Form;
-    $form->addText('title', 'Titulek:')
-      ->setRequired();
-    $form->addTextArea('content', 'Obsah:')
-      ->setRequired();
+	protected function createComponentPostForm(): Form
+	{
+		$form = new Form;
+		$form->addText('title', 'Titulek:')
+			->setRequired();
+		$form->addTextArea('content', 'Obsah:')
+			->setRequired();
 
-    $form->addSubmit('send', 'Uložit a publikovat');
-    $form->onSuccess[] = $this->postFormSucceeded(...);
+		$form->addSubmit('send', 'Uložit a publikovat');
+		$form->onSuccess[] = $this->postFormSucceeded(...);
 
-    return $form;
-  }
+		return $form;
+	}
 
-private function postFormSucceeded(array $data): void
-{
-	$postId = $this->getParameter('postId');
+	private function postFormSucceeded(array $data): void
+	{
+		$postId = $this->getParameter('postId');
 
-	if ($postId) {
+		if ($postId) {
+			$post = $this->database
+				->table('posts')
+				->get($postId);
+			$post->update($data);
+		} else {
+			$data["created_at"] = new \DateTime();
+			$post = $this->database
+				->table('posts')
+				->insert($data);
+		}
+		\Tracy\Debugger::barDump($data);
+		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+		$this->redirect('Post:show', $post->id);
+	}
+
+	public function renderEdit(int $postId): void
+	{
 		$post = $this->database
 			->table('posts')
 			->get($postId);
-		$post->update($data);
 
-	} else {
-		$data["created_at"] = new \DateTime();
-		$post = $this->database
-			->table('posts')
-			->insert($data);
-	}
-\Tracy\Debugger::barDump($data);
-	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect('Post:show', $post->id);
-}
+		if (!$post) {
+			$this->error('Post not found');
+		}
 
-public function renderEdit(int $postId): void
-{
-	$post = $this->database
-		->table('posts')
-		->get($postId);
-
-	if (!$post) {
-		$this->error('Post not found');
+		$this->getComponent('postForm')
+			->setDefaults($post->toArray());
 	}
 
-	$this->getComponent('postForm')
-		->setDefaults($post->toArray());
-}
+	public function startup(): void
+	{
+		parent::startup();
 
-public function startup(): void
-{
-	parent::startup();
-
-	if (!$this->getUser()->isLoggedIn()) {
-		$this->redirect('Sign:in');
+		if (!$this->getUser()->isLoggedIn()) {
+			$this->redirect('Sign:in');
+		}
 	}
-}
-
-
 }

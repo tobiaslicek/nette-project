@@ -1,29 +1,25 @@
 {block content}
+    <a n:href="Edit:edit $post->id">Upravit příspěvek</a>
+    <li><a n:href="Home:">Články</a></li>
+    <div class="date">{$post->created_at|date:'j.n.Y, G:i'}</div>
+    <h1 n:block="title">{$post->title}</h1>
 
+    <div class="post">{$post->content}</div>
+    <br><br>
+    <h2>Komentáře</h2>
+    <h3>Vložte nový Komentář</h3>
 
-<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
-<li><a n:href="Home:">Články</a></li>
-<div class="date">{$post->created_at|date:'j.n.Y, 	G:i'}</div>
-<h1 n:block="title">{$post->title}</h1>
-
-<div class="post">{$post->content}</div>
-<br><br>
-<h2>Komentáře</h2>
-<h3>Vložte nový Komentář</h3>
-
-{control commentForm}
-<br>
-<div class="comments">
-	{foreach $comments as $comment}
-		<div class="date">{$comment->created_at|date:'j.n.Y, 	G:i'} 
-		</div>
-		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
-			{$comment->name}
-		</a></b> napsal:</p>
-		<div>{$comment->content}</div>
-
-	{/foreach}
-</div>
-<br>
-<p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
-
+    {control commentForm}
+    <br>
+    <div class="comments">
+        {foreach $comments as $comment}
+            <div class="date">{$comment->created_at|date:'j.n.Y, G:i'}</div>
+            <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+                {$comment->name}
+            </a></b> napsal:</p>
+            <div>{$comment->content}</div>
+        {/foreach}
+    </div>
+    <br>
+    <p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
+{/block}

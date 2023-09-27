@@ -22,7 +22,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     }
 
     $this->template->post = $post;
-    $this->template->comments = $post->related('comments')->order('created_at DESC'); 
+    $this->template->comments = $post->related('comments')->order('created_at DESC');
   }
 
   protected function createComponentCommentForm(): Form
@@ -53,7 +53,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
       'name' => $data->name,
       'email' => $data->email,
       'content' => $data->content,
-      'created_at' =>new \DateTime()
+      'created_at' => new \DateTime()
     ]);
     \tracy\Debugger::barDump(new \DateTime());
 

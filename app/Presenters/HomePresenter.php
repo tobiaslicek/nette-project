@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Presenters;
 
 use App\Model\PostFacade;

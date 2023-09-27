@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Presenters;
 
 use Nette;
@@ -21,22 +22,20 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
-  private function signInFormSucceeded(Form $form, \stdClass $data): void
-{
-	try {
-		$this->getUser()->login($data->username, $data->password);
-		$this->redirect('Home:');
-
-	} catch (Nette\Security\AuthenticationException $e) {
-		$form->addError('Nesprávné přihlašovací jméno nebo heslo.');
+	private function signInFormSucceeded(Form $form, \stdClass $data): void
+	{
+		try {
+			$this->getUser()->login($data->username, $data->password);
+			$this->redirect('Home:');
+		} catch (Nette\Security\AuthenticationException $e) {
+			$form->addError('Nesprávné přihlašovací jméno nebo heslo.');
+		}
 	}
-}
 
-public function actionOut(): void
-{
-	$this->getUser()->logout();
-	$this->flashMessage('Odhlášení bylo úspěšné.');
-	$this->redirect('Home:');
-}
-
+	public function actionOut(): void
+	{
+		$this->getUser()->logout();
+		$this->flashMessage('Odhlášení bylo úspěšné.');
+		$this->redirect('Home:');
+	}
 }
